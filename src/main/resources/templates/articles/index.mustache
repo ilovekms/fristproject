@@ -10,11 +10,13 @@
   <tbody>
   {{#articleList}}
     <tr>
-      <th>{{id}}</th>
-      <td>{{title}}</td>
-      <td>{{content}}</td>
-    </tr>
+         <th>{{id}}</th>
+         <!-- 제목에 링크 걸기 -->
+         <td><a href="/articles/{{id}}">{{title}}</a></td>
+         <td>{{content}}</td>
+       </tr>
   {{/articleList}}
   </tbody>
 </table>
+<a href="/articles/new">New Article</a>
 {{>layouts/footer}}

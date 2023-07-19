@@ -33,8 +33,9 @@ public class ArticleController {
         log.info(form.toString());    // println() 을 로깅으로 대체!
         // 2. Repository에게 Entity를 DB로 저장하게 함
         Article saved = articleRepository.save(article);
-        log.info(article.toString()); // println() 을 로깅으로 대체!
-        return "";
+        log.info(saved.toString()); // println() 을 로깅으로 대체!
+        // 리다이렉트 적용: 생성 후, 브라우저가 해당 URL로 재요청
+        return "redirect:/articles/" + saved.getId();
     }
 
     @GetMapping("/articles/{id}") // 해당 URL요청을 처리 선언
@@ -57,5 +58,15 @@ public class ArticleController {
         model.addAttribute("articleList", articleEntityList);
         // 3: 뷰 페이지를 설정!
         return "articles/index";
+    }
+
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        // 수정할 데이터 가져오기
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+        // 모델에 데이터 등록
+        model.addAttribute("article", articleEntity);
+        // 뷰 페이지 설정
+        return "articles/edit";
     }
 }
