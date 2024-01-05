@@ -4,11 +4,20 @@ import com.example.fristproject.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
+/**
+ * The type Article form.
+ */
 @AllArgsConstructor
 @ToString
 public class ArticleForm {
     private String title;
     private String content;
+
+    /**
+     * To entity article.
+     *
+     * @return the article
+     */
     public Article toEntity() {
         return new Article(null, title, content);
     }

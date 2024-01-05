@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * The type Article.
+ */
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor   // 디폴트 생성자 추가

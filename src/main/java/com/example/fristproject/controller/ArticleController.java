@@ -14,6 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+/**
+ * The type Article controller.
+ */
 @Controller
 @Slf4j // 로깅을 위한 롬복 어노테이션
 public class ArticleController {
@@ -21,11 +24,22 @@ public class ArticleController {
     @Autowired // 스프링 부트가 미리 생성해놓은 리파지터리 객체를 가져옴(DI)
     private ArticleRepository articleRepository;
 
+    /**
+     * New article form string.
+     *
+     * @return the string
+     */
     @GetMapping("/articles/new")
     public String newArticleForm() {
         return "articles/new";
     }
 
+    /**
+     * Create article string.
+     *
+     * @param form the form
+     * @return the string
+     */
     @PostMapping("/articles/create")
     public String createArticle(ArticleForm form) {
 
@@ -39,6 +53,13 @@ public class ArticleController {
         return "redirect:/articles/" + saved.getId();
     }
 
+    /**
+     * Show string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/articles/{id}") // 해당 URL요청을 처리 선언
     public String show(@PathVariable Long id,
                        Model model) { // URL에서 id를 변수로 가져옴
@@ -51,6 +72,12 @@ public class ArticleController {
         return "articles/show";
    }
 
+    /**
+     * Index string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/articles")
     public String index(Model model) {
         // 1: 모든 Article을 가져온다!
@@ -61,6 +88,13 @@ public class ArticleController {
         return "articles/index";
     }
 
+    /**
+     * Edit string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/articles/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
         // 수정할 데이터 가져오기
@@ -71,7 +105,13 @@ public class ArticleController {
         return "articles/edit";
     }
 
-   @PostMapping("/articles/update")
+    /**
+     * Update string.
+     *
+     * @param form the form
+     * @return the string
+     */
+    @PostMapping("/articles/update")
     public String update(ArticleForm form) {
         log.info(form.toString());
         // 1: DTO를 엔티티로 변환
@@ -89,6 +129,13 @@ public class ArticleController {
         return "redirect:/articles/" + articleEntity.getId();
     }
 
+    /**
+     * Delete string.
+     *
+     * @param id   the id
+     * @param rttr the rttr
+     * @return the string
+     */
     @GetMapping("/articles/{id}/delete")
     public String delete(@PathVariable Long id,
                          RedirectAttributes rttr) {
