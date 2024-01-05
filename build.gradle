@@ -38,17 +38,14 @@ test {
 }
 
 
-/**************************************** React Frontend *******************************************************/
-
+/*********************Spring boot 에  React Frontend 연동 *******************************************************/
 def frontendDir = "$projectDir/src/main/frontend"
-
 sourceSets {
 	main {
 		resources { srcDirs = ["$projectDir/src/main/resources"]
 		}
 	}
 }
-
 processResources { dependsOn "copyReactBuildFiles" }
 
 task installReact(type: Exec) {

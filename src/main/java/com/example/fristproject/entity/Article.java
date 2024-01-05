@@ -18,7 +18,6 @@ import lombok.ToString;
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 생성 전략
-    //@GeneratedValue
     private Long id;
     @Column
     private String title;
