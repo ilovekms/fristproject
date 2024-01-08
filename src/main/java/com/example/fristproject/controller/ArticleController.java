@@ -1,8 +1,10 @@
 package com.example.fristproject.controller;
 
 import com.example.fristproject.dto.ArticleForm;
+import com.example.fristproject.dto.CommentDto;
 import com.example.fristproject.entity.Article;
 import com.example.fristproject.repository.ArticleRepository;
+import com.example.fristproject.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class ArticleController {
 
     @Autowired // 스프링 부트가 미리 생성해놓은 리파지터리 객체를 가져옴(DI)
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CommentService commentService;
 
     /**
      * New article form string.
@@ -66,8 +71,14 @@ public class ArticleController {
         log.info("id = " + id);
         // 1: id로 데이터를 가져옴!
         Article articleEntity = articleRepository.findById(id).orElse(null);
+
+        //1-1 id로 댓글 목록 가져옴
+        List<CommentDto> commentsDtos = commentService.comments(id);
+
         // 2: 가져온 데이터를 모델에 등록!
         model.addAttribute("article", articleEntity);
+        // 2-1: 가져온 댓글 데이터를 모델에 등록!
+        model.addAttribute("commentDtos", commentsDtos);
         // 3: 보여줄 페이지를 설정!
         return "articles/show";
    }

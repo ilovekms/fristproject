@@ -1,20 +1,17 @@
-package com.example.fristproject.ioc;/**
- * packageName    : com.example.fristproject.ioc
- * fileName       : Chef
- * 자바 파일설명 Chef
- * <br>
- * 자바파일 상세설명
- *
- * @author 2023년 국가농식품통계서비스 시스템 고도화 개발팀 kms
- * @since  2024-01-08
- * @version 1.0
- * @see
-  * <pre>
- *  ◈◈◈◈ 개정이력(Modification Information) ◈◈◈◈
- *
- *  수정일        수정자            수정내용
- *  ----------   --------   ---------------------------
- *   2024-01-08        kms          최초 생성
- * </pre>
- */public class Chef {
+package com.example.fristproject.ioc;
+
+import org.springframework.stereotype.Component;
+@Component
+public class Chef {
+    private IngredientFactory ingredientFactory;
+    public Chef(IngredientFactory ingredientFactory) {
+        this.ingredientFactory = ingredientFactory;
+    }
+
+    public String cook(String menu) {
+        // 재료 준비
+        Ingredient ingredient = ingredientFactory.get(menu);
+        // 요리 반환
+        return ingredient.getName() + "으로 만든 " + menu;
+    }
 }

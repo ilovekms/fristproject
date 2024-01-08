@@ -1,20 +1,24 @@
-package com.example.fristproject.repository;/**
- * packageName    : com.example.fristproject.repository
- * fileName       : CommentRepository
- * 자바 파일설명 CommentRepository
- * <br>
- * 자바파일 상세설명
- *
- * @author 2023년 국가농식품통계서비스 시스템 고도화 개발팀 kms
- * @since  2024-01-05
- * @version 1.0
- * @see
-  * <pre>
- *  ◈◈◈◈ 개정이력(Modification Information) ◈◈◈◈
- *
- *  수정일        수정자            수정내용
- *  ----------   --------   ---------------------------
- *   2024-01-05        kms          최초 생성
- * </pre>
- */public class CommentRepository {
+package com.example.fristproject.repository;
+
+import com.example.fristproject.entity.Comment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+
+    @Query(value =
+                    "SELECT * " +
+                    "FROM comment " +
+                    "WHERE article_id = :articleId"
+            ,nativeQuery = true
+        )
+    List<Comment> findByArticleId(@Param("articleId") Long articleId);
+
+    List<Comment> findByNickname(String nickname);
+
+    Long selectCommemtMaxId();
 }
